@@ -1,0 +1,6 @@
+.terraform
+.state
+.state.backup
+volume
+node_modules
+.terraform.lock.hcl

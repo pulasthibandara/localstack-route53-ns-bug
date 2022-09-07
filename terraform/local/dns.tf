@@ -1,9 +1,9 @@
 resource "aws_route53_zone" "base" {
-  name = "base.cloud"
+  name = "base.r53x"
 }
 
 resource "aws_route53_zone" "api" {
-  name = "api.base.cloud"
+  name = "api.base.r53x"
 }
 
 // "base" to "api"

@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
 
-  aliases = ["api.base.cloud"]
+  aliases = ["api.base.r53x"]
 
   default_cache_behavior {
     allowed_methods = [
