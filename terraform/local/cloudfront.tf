@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
 
-  aliases = [var.domain_name]
+  aliases = ["api.base.cloud"]
 
   default_cache_behavior {
     allowed_methods = [
@@ -26,8 +26,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       "HEAD",
     ]
 
-    target_origin_id         = "s3-cloudfront-asset"
-    viewer_protocol_policy   = "redirect-to-https"
+    target_origin_id       = "s3-cloudfront-asset"
+    viewer_protocol_policy = "redirect-to-https"
   }
 
   restrictions {
@@ -36,12 +36,11 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
-  // viewer_certificate {
-  //   cloudfront_default_certificate = true
-  //   acm_certificate_arn            = var.domain_acm_cert_arn
-  //   ssl_support_method             = "sni-only"
-  //   minimum_protocol_version       = "TLSv1"
-  // }
+  viewer_certificate {
+    acm_certificate_arn      = module.api_certificate.acm_certificate_arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1"
+  }
 
   custom_error_response {
     error_code         = 403
@@ -53,5 +52,5 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 }
 
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity_asset" {
-  comment = "access-identity-${local.bucket_name}.s3.amazonaws.com"
+  comment = "access-identity-${aws_s3_bucket.api-bucket.bucket}.s3.amazonaws.com"
 }

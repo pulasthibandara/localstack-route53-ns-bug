@@ -1,7 +1,3 @@
-resource "aws_route53_zone" "base" {
-  name = "base.cloud"
-}
-
-resource "aws_route53_zone" "api" {
-  name = "api.base.cloud"
+resource "aws_s3_bucket" "api-bucket" {
+  bucket = "api-bucket-local"
 }

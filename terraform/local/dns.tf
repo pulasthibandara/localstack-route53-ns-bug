@@ -8,7 +8,7 @@ resource "aws_route53_zone" "api" {
 
 // "base" to "api"
 resource "aws_route53_record" "api-ns" {
-  zone_id = data.aws_route53_zone.base.zone_id
+  zone_id = aws_route53_zone.base.zone_id
   name    = aws_route53_zone.api.name
   type    = "NS"
   ttl     = "30"
@@ -22,8 +22,8 @@ resource "aws_route53_record" "route53_record" {
   type    = "A"
 
   alias {
-    name    = aws_cloudfront_distribution.agw_distribution.domain_name
-    zone_id = aws_cloudfront_distribution.agw_distribution.hosted_zone_id
+    name    = aws_cloudfront_distribution.s3_distribution.domain_name
+    zone_id = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
 
     //HardCoded value for CloudFront
     evaluate_target_health = false
